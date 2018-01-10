@@ -35,9 +35,15 @@ module.exports = (state, emitter) => {
         emitter.emit('render')
         console.log('In browser action, received message from background:', message)
         await updateBrowserActionState(message.statusUpdate)
-        // another redraw after laggy state update finished
-        emitter.emit('render')
+        // lazy redraw after laggy state update finished
+        requestAnimationFrame(() => {
+          emitter.emit('render')
+        })
       }
+    })
+    requestAnimationFrame(() => {
+      // fade-in + fix for https://github.com/ipfs-shipyard/ipfs-companion/issues/318
+      document.body.style.opacity = 1
     })
   })
 

@@ -1,6 +1,12 @@
 @import url('node_modules/tachyons/css/tachyons.css');
 @import url('./mdc.switch.css');
 
+body {
+  /* Fix Chrome on Mac https://github.com/ipfs-shipyard/ipfs-companion/issues/318 */
+  opacity: 0;
+  transition: 'opacity ease-out .4s';
+}
+
 .bg-near-white--hover:hover {
   background-color: #F4F4F4;
 }
